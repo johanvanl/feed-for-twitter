@@ -39,6 +39,8 @@ def getTweets(html):
 
         data = l.findAll('p',{'class':'ProfileTweet-text js-tweet-text u-dir'})[0]
         tweet['description'] = getTweet(data)
+        tweet['content'] = tweet['description']
+        
     
         tweets.append(tweet)
         
@@ -62,6 +64,9 @@ def buildRSS(twitter_handle, tweets):
 
         description = ET.SubElement(item, 'description')
         description.text = t['description'].decode('utf8').replace('\n', ' ').replace('\r', '')
+
+        content = ET.SubElement(item, 'content')
+        content.text = t['content'].decode('utf8').replace('\n', ' ').replace('\r', '')
 
         link = ET.SubElement(item, 'link')
         link.text = t['link']
